@@ -156,19 +156,20 @@ Design Implications:
 •	Regular data backups and restore automation.
 •	Graceful degradation and alerting.
 
-In Summary: 
-Performance(Response speed, low latency)	UC-1, UC-2, UC-10
-
-Scalability	(Handling large user loads)	UC-1, UC-9
-Availability & Reliability	(Uptime, fault recovery)	UC-1–UC-10
-Security	(Access control, encryption)	UC-1, UC-6, UC-8, UC-10
-Usability	(Ease of interaction)	UC-1, UC-3, UC-4
-Maintainability	(Continuous deployment)	UC-10
-Extensibility	(Adding new AI services)	UC-10, UC-8
-Interoperability	(Integration with LMS, calendar)	UC-5, UC-8
-Privacy	(Compliance & confidentiality)	UC-3, UC-8
-Portability	(Web, mobile, voice)	UC-1, UC-9
-Testability	(Ease of verifying behavior)	UC-1, UC-10
-Fault Tolerance	(Resilience to failures)	UC-7, UC-9, UC-10
+In Summary
+| **Quality Attribute**      | **Key Focus**                  | **Relevant Use Cases**  |
+| -------------------------- | ------------------------------ | ----------------------- |
+| Performance                | Response speed, low latency    | UC-1, UC-2, UC-10       |
+| Scalability                | Handling large user loads      | UC-1, UC-9              |
+| Availability & Reliability | Uptime, fault recovery         | UC-1–UC-10              |
+| Security                   | Access control, encryption     | UC-1, UC-6, UC-8, UC-10 |
+| Usability                  | Ease of interaction            | UC-1, UC-3, UC-4        |
+| Maintainability            | Continuous deployment          | UC-10                   |
+| Extensibility              | Adding new AI services         | UC-10, UC-8             |
+| Interoperability           | Integration with LMS, calendar | UC-5, UC-8              |
+| Privacy                    | Compliance & confidentiality   | UC-3, UC-8              |
+| Portability                | Web, mobile, voice             | UC-1, UC-9              |
+| Testability                | Ease of verifying behavior     | UC-1, UC-10             |
+| Fault Tolerance            | Resilience to failures         | UC-7, UC-9, UC-10       |
 
 
