@@ -10,6 +10,6 @@
 | **UC-5** | **Calendar Export** | Students should be provided a way in order to export their academic calendar events to personal calendars (e.g., Apple Calendar, Google Calendar). |
 | **UC-6** | **Personalized Lecturer Dashboared** | Lecturers should be able to publish or update course to students via the AI Assistant. They will also be able to post announcement via the voice assistant. They can also view summarized class analytics and query the assistant for aggregated statistics. In addtion to all this Lecturers can also manage the access rights for teaching assistants.|
 | **UC-7** | **Scheduling & Notifications** | The system should allow lecturers to schedule automated reminders (e.g., assisngment deadlines). Additionally the system should notify lectureers of system-detected anomalies such as a sudden drop in participation. |
-
-
+| **UC-8** | **Adminstation Dashboard** | The system shouldn allow administrators to manage institutional integrations suhc as (LMS, Registration and calenders). The dash should also allow them to add or define global polices such as data retention and logging as well allowing them to monitor the system usage and generate analstic reports. |
+| **UC-9** | **Campus Announcements** | The system should grant administrators access to send out campus wide annoucements via the assistant. |
 
