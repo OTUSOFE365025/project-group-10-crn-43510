@@ -1,1 +1,11 @@
-Add the Use Cases to this file
+| **Use Case ID** | **Use Case Name** | **Description** | **Associated Requirements ID** |
+|-----------------|-------------------|-----------------|------------------|
+| **UC-1** | **Student AI Assistant** | A user interacts with the AI assistant to ask academic or administrative questions (e.g., "When is my next exam?"). The system processes the query, retrieves data from connected systems, and provides a natural-language response. | R1, R2, R3, R4, R5, RS1, RS4, RS5 |
+| **UC-2** | **Notifications** | Students should be notified of any deadlines, schedule changes, and announcements. Additionally students should be able to change their preferences for notifications and the primary interaction language. |R3, RS2, RS6 |
+| **UC-3** | **Personalized Student Dashboard** | The system should give students access to a personalized dashboard summarizing upcoming events (e.g., assignments, exams), and performance indicators such as GPA. The dashbaord should also allow students the functionality to export their academic calendar to thier personal calendar. | R2, R3, RS3, RS7, RS8, RS9, RS12, RS13 |
+| **UC-4** | **Personalized Lecturer Dashboard** | Lecturers can publish or update courses, post announcements, view analytics, query class statistics, and manage TA access rights. Additionally the system should allow lecturers to schedule automated reminders and notify them of anomalies (e.g., drop in participation). | RL1, RL2, RL3, RL4, RL5, RL6, RL7, RL8 |
+| **UC-5** | **Administration Dashboard** | Administrators can manage institutional integrations (LMS, registration, calendars), define global policies, and monitor usage analytics. | RA1, RA2, RA4, RA5 |
+| **UC-6** | **Campus Wide Announcements** | Administrators can send campus-wide announcements via the assistant. | R1, R3, R4, RA3 |
+| **UC-7** | **System Maintainer Dashboard** | Maintainers can monitor system health, latency, and errors, configure AI model versions, API keys, and add services/data sources. The system will also feature role-based access for maintaince operations nd allow secure backups and restores of user and configuration data. | RM2, RM3, RM4, RM5, RM6, RM7 |
+
+![Use Case Model](Use%20Case%20Model.png)
