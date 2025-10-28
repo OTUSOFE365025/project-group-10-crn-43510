@@ -7,3 +7,5 @@
 | **UC-5** | **Administration Dashboard** | Administrators can manage institutional integrations (LMS, registration, calendars), define global policies, and monitor usage analytics. | RA1, RA2, RA4, RA5 |
 | **UC-6** | **Campus Wide Announcements** | Administrators can send campus-wide announcements via the assistant. | R1, R3, R4, RA3 |
 | **UC-7** | **System Maintainer Dashboard** | Maintainers can monitor system health, latency, and errors, configure AI model versions, API keys, and add services/data sources. The system will also feature role-based access for maintaince operations nd allow secure backups and restores of user and configuration data. | RM2, RM3, RM4, RM5, RM6, RM7 |
+
+![Use Case Model](Use%20Case%20Model.png)
