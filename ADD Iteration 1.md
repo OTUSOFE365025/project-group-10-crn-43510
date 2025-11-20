@@ -256,8 +256,9 @@ Within each microservice, we apply the three-tier pattern (Presentation, Busines
 ## Step 6: Sketch Views and Record Design Decisions
 
 **Component Diagram:**
+<img width="1599" height="697" alt="image" src="https://github.com/user-attachments/assets/f6cfcad6-00cc-48d2-86f8-f110a747232e" />
 
-- To be added
+
 
 **Key Design Decisions:**
 | Decision | Rationale | Trade-offs |
