@@ -42,47 +42,216 @@ Design the high-level architecture to support core student-facing functionality 
 - Core AI integration layer
 
 ## Step 4: Choose Design Concepts
-**Architectural Pattern:** Three-tier architecture (Presentation, Business Logic, Data)
 
-**Technology Decisions:**
-- Frontend: React.js for responsive web interface
-- Backend: Node.js with Express framework for API services
-- Database: PostgreSQL for relational data, MongoDB for unstructured data
-- AI Integration: OpenAI API for natural language processing
-- Authentication: OAuth 2.0 with JWT tokens
-- Hosting: AWS cloud infrastructure
+### Reference Architecture: Microservices Architecture with Three-Tier Layering
+
+**Reference Architecture Selected:** Microservices-based Three-Tier Architecture
 
 **Justification:**
-- Three-tier provides clear separation of concerns
-- React enables responsive, modern UI
-- Node.js offers good performance for concurrent requests
-- Dual database approach handles both structured and unstructured data
-- OpenAI provides robust AI capabilities without building from scratch
-- AWS offers scalability and reliability
+The microservices architecture pattern is chosen as the primary reference architecture for AIDAP based on the following requirements analysis:
+- Need for independent scaling of services (R7: cloud-native, scalable service)
+- Integration with multiple external systems (R3: LMS, registration, calendars)
+- Support for 5,000+ concurrent users (RA7)
+- High availability requirements (RS11: 99.5% uptime)
+- Need for independent deployment and updates (RM1: zero-downtime deployment)
+
+Within each microservice, we apply the three-tier pattern (Presentation, Business Logic, Data) for internal organization.
+
+**Reference:** This follows the microservices architecture pattern as described in "Building Microservices" by Sam Newman and the three-tier pattern from "Pattern-Oriented Software Architecture" (POSA).
+
+### Architectural Pattern Details
+
+**Tier 1: Presentation Layer**
+- Handles user interaction for web, mobile, and voice interfaces
+- Components: Student Interface, Lecturer Interface, Admin Interface, Maintainer Interface
+
+**Tier 2: Business Logic Layer (Microservices)**
+- Independent services with specific responsibilities
+- Components: Authentication Service, AI Assistant Service, Dashboard Service, Notification Service, User Management Service
+
+**Tier 3: Data Layer**
+- Persistent storage and caching
+- Components: PostgreSQL (structured data), MongoDB (conversation history), Redis (caching)
+
+### Technology Decisions
+
+**Frontend Technologies:**
+- React.js for responsive web interface
+- React Native for mobile applications
+- Voice SDK integration for voice assistants
+
+**Backend Technologies:**
+- Node.js with Express framework for API services
+- Microservices communicate via RESTful APIs
+- Message queue (RabbitMQ) for asynchronous communication
+
+**Data Storage:**
+- PostgreSQL for relational data (users, courses, schedules, grades)
+- MongoDB for unstructured data (conversation history, logs, analytics)
+- Redis for session management and caching
+
+**AI Integration:**
+- OpenAI API for natural language processing (R5: AI models for NL queries)
+- Custom intent classification for AIDAP-specific queries
+
+**Authentication:**
+- OAuth 2.0 with university SSO integration (RS7)
+- JWT tokens for stateless authentication
+
+**Cloud Infrastructure:**
+- AWS for cloud hosting (R7: cloud-native deployment)
+- Kubernetes for container orchestration
+- Docker for containerization
+
+**Justification for Technology Stack:**
+- **React/React Native:** Unified codebase for web and mobile (RS9: mobile, web, voice)
+- **Node.js:** JavaScript full-stack reduces context switching, excellent for I/O-heavy operations
+- **Microservices:** Independent scaling and deployment aligns with university's need for high availability
+- **PostgreSQL:** ACID compliance needed for academic data integrity (RD4)
+- **MongoDB:** Flexible schema for conversation history (R2: store historical interactions)
+- **Redis:** In-memory caching achieves 2-second response requirement (RS10)
+- **OpenAI API:** Proven NLP capabilities without building AI from scratch (R5)
+- **AWS + Kubernetes:** Industry-standard cloud-native deployment for scalability (R7, RA7)
 
 ## Step 5: Instantiate Architectural Elements
-**Components Created:**
-1. **Presentation Layer:**
-   - Student Web Interface
-   - Lecturer Web Interface
-   - Admin Web Interface
 
-2. **Business Logic Layer:**
-   - Authentication Service
-   - AI Assistant Service
-   - Notification Service
-   - Dashboard Service
-   - User Management Service
+### AIDAP-Specific Components Created
 
-3. **Data Layer:**
-   - User Database (PostgreSQL)
-   - Conversation History Store (MongoDB)
-   - Session Cache (Redis)
+#### Tier 1: Presentation Layer (Client Applications)
+1. **AIDAP Student Web Application**
+   - Web-based conversational interface for students
+   - Personalized dashboard with academic information
+   - Mobile-responsive design
 
-4. **Integration Layer:**
-   - OpenAI API Connector
-   - University System Integration Service
-   - Email/SMS Gateway
+2. **AIDAP Lecturer Web Application**
+   - Course management interface
+   - Class analytics and reporting
+   - Announcement publishing
+
+3. **AIDAP Admin Portal**
+   - System administration interface
+   - Integration management
+   - Campus-wide announcement broadcasting
+
+4. **AIDAP Maintainer Dashboard**
+   - System health monitoring
+   - Performance metrics
+   - Deployment management
+
+#### Tier 2: Business Logic Layer (AIDAP Microservices)
+
+1. **University Authentication Service**
+   - SSO integration with university identity provider
+   - JWT token generation and validation
+   - Role-based access control (Student, Lecturer, Admin, Maintainer)
+   - Session management
+
+2. **AIDAP Conversation Service** (AI Assistant)
+   - Natural language query processing
+   - Intent classification (schedule, grades, deadlines, course info)
+   - OpenAI API integration
+   - Conversation context management
+   - Response generation with university-specific knowledge
+
+3. **Academic Dashboard Service**
+   - Student dashboard aggregation (grades, schedule, deadlines)
+   - Lecturer dashboard (course analytics, pending work)
+   - Admin dashboard (system usage, integration status)
+   - Maintainer dashboard (health metrics, logs)
+   - Personalization engine
+
+4. **University Notification Service**
+   - Multi-channel delivery (email, SMS, push, in-app)
+   - Deadline reminders
+   - Grade posting notifications
+   - Schedule change alerts
+   - Campus-wide announcements
+   - Notification preference management
+
+5. **Academic Data Integration Service**
+   - LMS integration (courses, assignments, materials)
+   - Registration system integration (schedules, enrollment)
+   - Calendar integration (events, deadlines)
+   - Email system integration
+   - Synchronization management
+
+6. **University User Management Service**
+   - Student profile management
+   - Lecturer profile management
+   - Admin and maintainer account management
+   - User preference storage
+   - Role assignment
+
+#### Tier 3: Data Layer (AIDAP Data Stores)
+
+1. **University User Database (PostgreSQL)**
+   - Student profiles and credentials
+   - Lecturer and admin accounts
+   - User preferences and settings
+   - Role assignments
+
+2. **Academic Data Database (PostgreSQL)**
+   - Course catalog
+   - Class schedules
+   - Grade records
+   - Enrollment data
+   - Academic calendar
+
+3. **AIDAP Conversation Store (MongoDB)**
+   - Conversation history per student
+   - Query and response logs
+   - Intent classification results
+   - Personalization data
+   - Analytics data
+
+4. **Session Cache (Redis)**
+   - User session data
+   - JWT tokens
+   - Frequently accessed academic data
+   - Query result caching
+   - Real-time notification queue
+
+#### Integration Layer (External System Connectors)
+
+1. **LMS Connector**
+   - Course material retrieval
+   - Assignment and grade sync
+   - Announcement publishing
+   - Student progress tracking
+
+2. **University Registration System Connector**
+   - Class schedule retrieval
+   - Enrollment status queries
+   - Course availability checks
+
+3. **University Calendar Connector**
+   - Academic calendar sync
+   - Deadline management
+   - Event notifications
+
+4. **Email Gateway Connector**
+   - Email notification sending
+   - Email integration for announcements
+
+5. **OpenAI API Connector**
+   - Natural language understanding
+   - Response generation
+   - Model version management
+   - API key rotation
+
+### Component Mapping to Requirements
+
+| Component | Requirements Addressed |
+|-----------|----------------------|
+| AIDAP Conversation Service | RS1, RS5, R1, R5, R6 |
+| Academic Dashboard Service | RS3, RL3, RA4 |
+| University Notification Service | RS2, RL2, RL7, RA3 |
+| University Authentication Service | RS7, RS8, RL8 |
+| Academic Data Integration Service | R3, RD1, RD2, RD3 |
+| University User Management Service | RS6, RL5, RM7 |
+| Session Cache (Redis) | RS10, RS14 |
+| Conversation Store (MongoDB) | R2, RS5 |
+
 
 ## Step 6: Sketch Views and Record Design Decisions
 
