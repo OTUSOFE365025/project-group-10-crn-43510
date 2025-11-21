@@ -21,15 +21,30 @@
 | **QA-6**        | High           | High                             |
 
 
-## Step 2: Establish Iteration Goal
-**Goal:** 
-Design the high-level architecture to support core student-facing functionality (AI assistant, dashboard, notifications) while ensuring performance, availability, and security requirements are met.
+### **Step 2: Establish Iteration Goal**
 
-**Focus Areas:**
-- Overall system structure
-- Major subsystems and their interactions
-- Technology stack selection
-- Deployment strategy
+Design the high-level architecture to support core student-facing functionality (AI assistant, dashboard, notifications) while ensuring performance, availability, and security requirements are met. This should be done while keeping in mind several key drivers that influence the design:
+
+- **QA-1**: Performance  
+- **QA-2**: Scalability  
+- **QA-3**: Availability & Reliability  
+- **QA-4**: Security  
+- **QA-5**: Usability  
+- **QA-6**: Maintainability  
+- **QA-7**: Extensibility  
+- **QA-8**: Interoperability  
+
+
+**Constraints to consider during this iteration:**
+
+- **CON-1**: Cloud-native, scalable deployment must be supported (RA7)  
+- **CON-2**: The system must be accessible via web, mobile, and voice assistants across major platforms (Portability)  
+- **CON-3**: 2-second average response time (RS10, RA1)  
+- **CON-4**: 99.5% monthly uptime (RS11, RA6)  
+- **CON-5**: Support for ≥5,000 concurrent users (RA7)  
+- **CON-6**: Privacy and security compliance (RA2, RA5, RS8)  
+- **CON-7**: HTTPS/TLS required for all communication (RA5)  
+
 
 ## Step 3: Choose Elements to Refine
 **Elements Selected:**
