@@ -1,5 +1,5 @@
-## Deployment Architecture
-# Click on the diagram for better visibility.
+# Deployment Architecture
+### Click on the diagram for better visibility.
 
 ![Deployment Diagram](DeploymentDiagramPhase2.png)
 
