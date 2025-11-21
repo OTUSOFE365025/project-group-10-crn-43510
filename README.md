@@ -1,2 +1,2 @@
-# SOFE3650F25-Project
-SOFE3650F25 Project Repository Template
+# Business Case
+The AI Digital Assistant Platform (AIDAP) aims to solve the current issues faced by modern universities and their reliance on disconnected systems to manage business and academic operations. At present, universities use multiple different systems for tasks such as course registration, grade checking, and assignment submission. AIDAP seeks to address these problems by creating a unified system that fulfills all academic needs of students. Additionally, AIDAP focuses on refining the experience for all users through deep AI integration as a core feature. This ensures AIDAP solves all pre-existing issues that plagued older systems while integrating the latest cutting-edge AI technology to enhance the experience of all users, from students all the way to the system maintainers.
