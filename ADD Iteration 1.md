@@ -34,7 +34,7 @@ Design the high-level architecture to support core student-facing functionality 
 - **QA-7**: Extensibility  
 - **QA-8**: Interoperability  
 
-
+<br></br>
 **Constraints to consider during this iteration:**
 
 - **CON-1**: Cloud-native, scalable deployment must be supported (RA7)  
@@ -48,9 +48,7 @@ Design the high-level architecture to support core student-facing functionality 
 
 ## Step 3: Choose Elements to Refine
 **Elements Selected:**
-- Entire AIDAP system (greenfield design)
-- Focus on student-facing modules first
-- Core AI integration layer
+We are desgining and developing the full AIDAP system as a greenfield build, starting with the student-facing components and establishing a robust AI integration layer at the core.
 
 ## Step 4: Choose Design Concepts
 
