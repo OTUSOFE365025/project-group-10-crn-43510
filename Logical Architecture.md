@@ -6,7 +6,7 @@ This section documents the logical architecture of the AIDAP platform, showing a
 
 ## Logical Architecture Diagram
 
-![Logical Architecture Diagram](logical architecture diagram.png) 
+![Logical Architecture Diagram](LogicalArchitectureDiagram.png) 
 
 ---
 
