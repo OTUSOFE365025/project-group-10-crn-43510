@@ -1,6 +1,6 @@
 ## Deployment Architecture
 
-![Deployment Diagram](Deployment_Diagram.png)
+![Deployment Diagram](DeploymentDiagramPhase2.png)
 
 | Element                     | Description                                                             | Domain Role                         |
 |-----------------------------|-------------------------------------------------------------------------|-------------------------------------|
