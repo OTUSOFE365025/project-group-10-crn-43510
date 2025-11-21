@@ -6,8 +6,7 @@ This section documents the logical architecture of the AIDAP platform, showing a
 
 ## Logical Architecture Diagram
 
-![Logical Architecture Diagram](logical architecture diagram.png)  
-<sup>PlantUML source included below for transparency and reproducibility.</sup>
+![Logical Architecture Diagram](logical architecture diagram.png) 
 
 ---
 
