@@ -3,16 +3,18 @@
 
 ![Deployment Diagram](DeploymentDiagramPhase2.png)
 
-| Element                     | Description                                                             | Domain Role                         |
-|-----------------------------|-------------------------------------------------------------------------|-------------------------------------|
-| AI Core Server              | Hosts the main AI engine handling queries, analytics, and API calls.     | Central computation, data analytics |
-| Student Client (Web/App)    | User-facing interface for students to access assistant features.         | Interactive access node             |
-| Faculty/Admin Dashboard     | Interface used by faculty/admins for content management and analytics.   | Institutional management portal     |
-| LMS Connector               | Middleware bridging AI Core and the Learning Management System (LMS).    | Data integration                    |
-| Registration API            | Communicates with university registration services for student/advisor.  | External system integration         |
-| Calendar Sync Service       | Connects and synchronizes institutional calendars and event data.        | Event scheduling connector          |
-| Email Gateway               | Handles outbound/inbound emails for notification and content delivery.   | Messaging                       |
-| External Data Source Node   | APIs/services for external analytics (grades, attendance, etc.).         | Third-party data fetcher            |
-| Monitoring/Logging Service  | Collects performance, health, and security logs.                         | Reliability/quality infrastructure  |
-| Institutional Network       | Secures all internal communication between servers and clients.          | Secure transport layer              |
+| Element                             | Description                                                         | Domain Role                           |
+|-------------------------------------|---------------------------------------------------------------------|---------------------------------------|
+| Student Web Browser                 | React Frontend App for students                                     | Client Layer: Student access point    |
+| Student Mobile Device               | React Native Mobile App (Student UI)                                | Client Layer: Mobile access for students |
+| Lecturer Web Browser                | React Frontend App for lecturers                                    | Client Layer: Lecturer access point   |
+| Admin Web Browser                   | React Frontend App for admins                                       | Client Layer: Admin access point      |
+| Maintainer Dashboard Browser        | React Frontend App (Maintainer UI)                                  | Client Layer: System maintenance      |
+| Edge/Gateway Layer (AWS)            | AWS Route 53 (DNS), AWS Application Load Balancer, AWS API Gateway  | Routing, load balancing, API ingress  |
+| Application Layer (AWS EKS Cluster) | Authentication, Notification, AI Conversation, Academic Data Integration, Dashboard, User Management Services | Core business logic & application services |
+| Caching Layer (AWS)                 | AWS ElastiCache Redis Cluster                                       | Session/state caching                 |
+| Data Layer (AWS)                    | AWS RDS PostgreSQL Primary, Read Replicas, AWS DocumentDB Cluster   | Persistent data storage and retrieval |
+| Monitoring/Operations Layer         | AWS CloudWatch                                                      | Performance & uptime monitoring       |
+| Log Aggregation Service             | Log Collector/Aggregator                                            | Operational logging                   |
+| External Integration Layer          | OpenAI API Server, University LMS Server, University Registration System Server, University Email Gateway Server | Integrations with 3rd-party/external systems |
 
