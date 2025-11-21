@@ -1,29 +1,25 @@
 # ADD Iteration 1: Establishing System Foundation
 
 ## Step 1: Review Inputs
-**Design Purpose:** 
-- Establish the overall system structure for AIDAP (AI Digital Assistant Platform)
-- Focus on high-level architectural decisions
+| **Category** | **Details** |
+|--------------|-------------|
+| **Design purpose** | This is a greenfield system from a mature domain and the purpose is to establish the overall architectural structure for the AI-Powered Digital Assistant Platform (AIDAP). The goal is to define high-level architectural decisions that support conversational interaction, AI-driven responses, and integration with institutional systems. |
+| **Primary functional requirements** | From the use cases, the primary ones were identified as:<br><br>**UC-1:** Student AI Assistant — core functionality enabling students to query academic information.<br><br>**UC-2:** Notifications — supports real-time alerts for deadlines and announcements.<br><br>**UC-3:** Personalized Student Dashboard — provides contextual insights and student-specific data. |
+| **Constraints** | The following constraints must be used as architectural drivers:<br><br>• Must integrate with university systems (SIS, LMS, Calendar).<br>• Must support **10,000+ concurrent users**.<br>• Must use a **cloud-based deployment model**. |
+| **Architectural concerns** | The architect must keep in mind the following concerns:<br><br>• Scalability for a rapidly growing user base.<br>• Integration with external AI and NLP services.<br>• Data privacy, authentication, and compliance with institutional policies. |
 
-**Primary Functional Requirements:**
-- UC-1: Student AI Assistant
-- UC-3: Personalized Student Dashboard
-- UC-2: Notifications
 
-**Quality Attribute Scenarios:**
-- Performance: System must respond to student queries within 2 seconds
-- Availability: System must maintain 99.5% uptime during academic terms
-- Security: User authentication and data protection must meet university standards
+### Quality Attribute Scenario:
 
-**Constraints:**
-- Must integrate with existing university systems (student information system, learning management system)
-- Must support 10,000+ concurrent users
-- Cloud-based deployment required
+| **Scenario ID** | **Importance** | **Difficulty of Implementation** |
+|-----------------|----------------|----------------------------------|
+| **QA-1**        | High           | High                             |
+| **QA-2**        | High           | High                             |
+| **QA-3**        | High           | Medium                           |
+| **QA-4**        | Medium         | Medium                           |
+| **QA-5**        | Medium         | Medium                           |
+| **QA-6**        | High           | High                             |
 
-**Architectural Concerns:**
-- Scalability for growing user base
-- Integration with external AI services
-- Data privacy and compliance
 
 ## Step 2: Establish Iteration Goal
 **Goal:** 
