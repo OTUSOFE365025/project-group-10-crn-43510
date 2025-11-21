@@ -1,5 +1,6 @@
 ## Deployment Architecture
-- Click on the diagram for better visibility.
+# Click on the diagram for better visibility.
+
 ![Deployment Diagram](DeploymentDiagramPhase2.png)
 
 | Element                     | Description                                                             | Domain Role                         |
