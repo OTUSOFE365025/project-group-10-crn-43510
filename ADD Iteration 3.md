@@ -57,7 +57,8 @@ The instantiation design decisions are summarized below:
 
 The diagram below illustrates the refined Deployment View, highlighting the redundancy (Clusters, Replicas) and security boundaries (Gateway).
 
-*(Note: Insert Deployment Diagram here)*
+<img width="880" height="785" alt="image" src="https://github.com/user-attachments/assets/d279bc6a-d162-4931-b6b5-2f53b3b1a1f7" />
+
 
 ## Step 7: Analyze Design and Review Iteration
 
