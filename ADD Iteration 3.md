@@ -1,63 +1,71 @@
-# ADD Iteration 3 – AIDAP
+# ADD Iteration 3: Addressing Availability, Scalability, and Security
 
-## 1. Iteration goal and selected drivers
+This section presents the results of the activities performed in the third iteration of the design process, focusing on the critical quality attributes identified in the ATAM assessment.
 
-The goal of Iteration 3 is to refine the AIDAP architecture to satisfy key quality attributes for the most critical usage scenarios, focusing on performance, availability, and security for conversational queries, notifications, and integrations with university systems.
+## Step 1: Review Inputs
 
-The following requirements are treated as drivers in this iteration:  
-- Performance: RS10 (average 2‑second response time), R7 (cloud‑native scalable service), RD1–RD3 (synchronization, standard APIs, graceful failure handling), RM4 (logging performance metrics).  
-- Availability: RS11 (99.5% monthly availability), RA6–RA7 (high availability, failover, scalability), RM1 (zero‑downtime updates), RM6 (backup and restore).  
-- Security: R8 (privacy and policy compliance), RS7–RS8 (SSO and data isolation), RL8 (authorization on course data), RA2–RA5 (policies, security and privacy), RM7 (role‑based access).
+The first step involves reviewing the inputs and identifying which requirements will be considered as drivers for this iteration. The inputs are summarized in the following table.
 
-## Step 2: Choose Elements of the System to Refine
+| Category | Details |
+| :--- | :--- |
+| **Design Purpose** | Refine the physical deployment and integration architecture to ensure the system meets critical quality standards for a cloud-native environment. |
+| **Primary Drivers** | **Availability:** RS11 (99.5% uptime), RA6 (Failover), RM1 (Zero-downtime).<br>**Performance:** RS10 (2s latency), RA7 (5,000 users).<br>**Security:** RS7 (SSO), RS8 (Data privacy), RM7 (Role-based access). |
+| **Constraints** | **R7:** The system must be deployable as a cloud-native, scalable service.<br>**RD2:** The system must use standard APIs (REST/GraphQL) for interoperability. |
 
-In this iteration, the following elements identified in previous iterations are selected for refinement:
-* Conversation/API Gateway
-* Conversation Orchestrator & AI Services
-* Integration Services (LMS, Registration, Calendar)
-* Identity and Access Management (IAM)
-* Data Stores (Interaction History, Configuration, Logs)
+## Step 2: Establish Iteration Goal by Selecting Drivers
 
-## Step 3: Choose Design Concepts That Satisfy the Selected Drivers
+The goal of this iteration is to satisfy the high-priority quality attribute scenarios related to performance, availability, and security. The following drivers are selected:
 
-The following design concepts are selected to satisfy the drivers.
+* **QA-1 (Performance):** The system shall respond to queries within 2 seconds (RS10) and scale to 5,000 users (RA7).
+* **QA-2 (Availability):** The system shall remain available 99.5% of the time (RS11) with automatic fail-over (RA6).
+* **QA-3 (Security):** The system shall enforce strict authentication via SSO (RS7), encrypt sensitive data (R8), and enforce role-based maintenance access (RM7).
+
+## Step 3: Choose Elements of the System to Refine
+
+To address these drivers, we refine the physical nodes and deployment units identified in previous iterations:
+* Application Server (Conversation Orchestrator & Gateway)
+* Data Storage Layer (Database & Cache)
+* External Integration Interfaces (SSO, LMS, AI Service)
+* Monitoring & Security Infrastructure
+
+## Step 4: Choose Design Concepts That Satisfy the Selected Drivers
+
+The following design concepts and tactics are selected to satisfy the drivers:
 
 | Design Decision | Rationale |
 | :--- | :--- |
-| **Caching Strategy (Gateway & Orchestrator)** | **(Performance)** Frequently accessed data (course schedules, deadlines) are cached with configurable TTL. [cite_start]This reduces load on downstream systems and ensures the 2-second response time required by RS10[cite: 629]. |
-| **Asynchronous Processing (Message Queue)** | **(Performance/Scalability)** Non-critical tasks (detailed logging, analytics aggregation) are offloaded to background workers via a message queue. [cite_start]This prevents blocking user requests, supporting RS10 and RM4[cite: 629, 635]. |
-| **Active Redundancy & Load Balancing** | **(Availability)** Stateless services (Gateway, Orchestrator) run in multiple active instances behind a load balancer. [cite_start]Traffic is automatically redistributed if a node fails, satisfying RS11 and RA6[cite: 629, 633]. |
-| **Resilient Integration (Circuit Breakers)** | **(Availability)** Calls to external data sources (LMS, Registration) are wrapped in retry and circuit-breaker logic. [cite_start]If an external system fails, cached or partial data is returned (RD3)[cite: 637]. |
-| **Centralized SSO (OAuth2/OIDC)** | **(Security)** All user-facing channels authenticate via the institution’s SSO using OAuth2/OpenID Connect. [cite_start]Short-lived access tokens carry user identity and roles, strictly enforcing RS7 and RS8[cite: 629]. |
+| **Active Redundancy (Load Balanced Cluster)** | **(Availability & Scalability)** To meet RS11 and RA7, the Application Server is deployed as a cluster of stateless instances behind a Load Balancer. This allows traffic to be distributed (Performance) and rerouted if a node fails (Availability). |
+| **Database Replication (Master-Slave)** | **(Availability)** To address RA6, the database uses Master-Slave replication. Writes go to the Master; reads are distributed to replicas. If the Master fails, a replica is promoted to ensure continuity. |
+| **API Gateway with OAuth2 & RBAC** | **(Security)** An API Gateway serves as the single entry point. It integrates with the IAM service to validate SSO tokens (RS7) and enforces Role-Based Access Control (RBAC) to ensure only authorized users (e.g., Maintainers vs. Students) access specific endpoints (RM7, RS8). |
+| **Encryption (TLS & AES)** | **(Security/Privacy)** To meet R8 and RA5, all data in transit is encrypted via TLS 1.3. Sensitive data at rest (grades, logs) is encrypted using AES-256, ensuring compliance with institutional privacy policies. |
+| **Caching Strategy (Redis)** | **(Performance)** A distributed cache stores frequent query responses. This reduces the processing load on the AI and Database layers, ensuring the 2-second response time (RS10). |
 
-## Step 4: Instantiate Architectural Elements and Define Interfaces
+## Step 5: Instantiate Architectural Elements and Define Interfaces
 
-This iteration refines key modules by assigning explicit responsibilities and defining the main interfaces between them.
+The instantiation design decisions are summarized below:
 
-| Element | Responsibility | Key Interfaces (Examples) |
+| Element | Responsibility | Key Interfaces |
 | :--- | :--- | :--- |
-| **Conversation/ API Gateway** | Exposes REST/GraphQL endpoints; performs request validation, token verification, rate limiting, and caching of frequent responses. | `handleRequest(request)`: Receives/normalizes messages.<br>`getCachedResponse(userId, queryKey)`: Retrieves cached data. |
-| **Conversation Orchestrator** | [cite_start]Interprets user intents using AI models; coordinates with integration services; manages context and personalization (RS5)[cite: 628]. | `processMessage(userContext, message)`: Returns response object.<br>`enqueueTask(taskDescriptor)`: Offloads non-critical tasks. |
-| **Integration Services** | [cite_start]Encapsulates access to external systems (LMS, Registration); handles protocol details, retries, and error mapping (RD2, RD3)[cite: 637]. | `getStudentSchedule(userId)`: Returns classes/exams.<br>`publishAnnouncement(courseId, content)`: Posts data to external systems. |
-| **Identity & Access Mgmt (IAM)** | [cite_start]Validates SSO tokens; enforces role-based access control (RBAC) policies for Students, Lecturers, and Admins (RS7, RL8)[cite: 629, 631]. | `validateToken(token)`: Returns principal/roles.<br>`checkAccess(principal, resource)`: Returns allow/deny based on policy. |
-| **Data Stores** | [cite_start]Persists interaction history for personalization (R2) [cite: 626][cite_start]; implements replication and backup for disaster recovery (RA6, RM6)[cite: 633, 635]. | `saveInteraction(userId, record)`: Persists exchanges.<br>`getRecentInteractions(userId)`: Supports context continuity. |
+| **Load Balancer** | Distributes traffic to healthy instances; performs health checks. | `routeRequest(HttpRequest)` |
+| **API Gateway** | Enforces security policies (RS8); terminates SSL; performs rate limiting. | `forwardRequest(context)` |
+| **Authorization Service / IAM** | Validates SSO tokens; enforces RBAC policies (e.g., checking if user has `Lecturer` or `Maintainer` role before allowing write operations) (RM7, RL5). | `validateToken(token)`<br>`authorize(user, resource, action)` |
+| **AIDAP Backend Cluster** | Stateless containers running the core business logic and AI orchestration. | `processQuery(userContext, query)` |
+| **Monitoring & Logging Service** | Aggregates health, latency, and error metrics; logs performance data for model accuracy (RM2, RM4). | `logMetric(service, metric, value)`<br>`alert(condition)` |
+| **Cache Layer (Redis)** | Stores high-frequency data with Time-To-Live (TTL). | `get(key)`, `set(key, value, ttl)` |
 
-## Step 5: Sketch Views (Deployment Diagram)
+## Step 6: Sketch Views (Deployment Diagram)
 
-The deployment view is refined to show stateless services as replicated containers behind a load balancer, with a separate message queue node and replicated data stores.
+The diagram below illustrates the refined Deployment View, highlighting the redundancy (Clusters, Replicas) and security boundaries (Gateway).
 
-(Deployment Diagram here)
+*(Note: Insert Deployment Diagram here)*
 
-## Step 6: Analyze Design and Review Iteration
+## Step 7: Analyze Design and Review Iteration
 
-The following Kanban board summarizes the status of the drivers following this iteration.
+The following table summarizes the status of the drivers following this iteration.
 
 | Not Addressed | Partially Addressed | Completely Addressed | Design Decisions Made |
 | :--- | :--- | :--- | :--- |
-| | | **Performance (RS10, R7)** | [cite_start]Achieved via Caching, Asynchronous Processing, and Elastic Scaling[cite: 626, 629]. |
-| | | **Availability (RS11, RA6)** | [cite_start]Achieved via Active Redundancy, Load Balancing, and Database Replication[cite: 629, 633]. |
-| | | **Security (RS7, RS8)** | [cite_start]Achieved via Centralized SSO, Token-based access, and RBAC[cite: 629]. |
-| | **Operations (RM1-RM4)** | | [cite_start]Concepts for monitoring/logging are defined, but specific platform tools (e.g., Prometheus) are not yet selected[cite: 635]. |
-| | **Data Sync (RD1-RD3)** | | [cite_start]Integration services are defined, but specific API contracts and sync schedules need detailed specification[cite: 637]. |
-| **Usability (RS12)** | | | [cite_start]Detailed UI design is deferred to future iterations[cite: 629]. |
-| **Multi-language (RS4)** | | | [cite_start]Translation services are not yet explicitly modeled[cite: 628]. |
+| | | **Performance (RS10, RA7)** | addressed via Load Balancing, Caching, and Horizontal Scaling. |
+| | | **Availability (RS11, RA6)** | addressed via Active Redundancy and Database Replication. |
+| | | **Security (RS7, RS8, RM7)** | addressed via API Gateway, SSO Integration, Encryption, and RBAC. |
+| | **Operations (RM1-RM4)** | | Monitoring components instantiated; specific dashboards and pipeline tools pending selection. |
