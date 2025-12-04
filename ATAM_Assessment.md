@@ -14,7 +14,7 @@ The following Utility Tree identifies the driving architectural requirements for
 | | Throughput | **(RA7)** The system shall support scalability to handle performance requirements for up to 5,000 concurrent users (e.g., during course registration periods). | (H, H) |
 
 
-![ATAM Utility Tree](ATAM Utility Tree.png)
+![ATAM Utility Tree](ATAM%20Utility%20Tree.png)
 
 
 
