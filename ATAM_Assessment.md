@@ -13,6 +13,11 @@ The following Utility Tree identifies the driving architectural requirements for
 | **Performance** | Latency | **(RS10)** The system shall respond to user natural-language queries within 2 seconds on average under normal load. | (H, H) |
 | | Throughput | **(RA7)** The system shall support scalability to handle performance requirements for up to 5,000 concurrent users (e.g., during course registration periods). | (H, H) |
 
+
+![ATAM Utility Tree](ATAM Utility Tree.png)
+
+
+
 ## ATAM Risk Assessment Table
 
 The following table maps the architectural decisions made in Iteration 3 to potential risks, sensitivities, and tradeoffs.
